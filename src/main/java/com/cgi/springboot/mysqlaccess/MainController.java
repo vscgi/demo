@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class MainController {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	@PostMapping(path="/adduser")
+	@PostMapping(path = "/users")
 	public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email) {
 		User n = new User();
 		n.setName(name);
@@ -28,7 +29,12 @@ public class MainController {
 		return "Saved";
 	}
 	
-	@PostMapping(path="/updateemail")
+	@GetMapping(path = "/users")
+	public @ResponseBody Iterable<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	@PostMapping(path = "/updateemail")
 	public @ResponseBody String updateEmail(@RequestParam Integer id, @RequestParam String newEmail) {
 		Optional<User> toBeUpdated = userRepository.findById(id);
 		toBeUpdated.ifPresent(user -> {
@@ -40,12 +46,7 @@ public class MainController {
 		return "Updated";
 	}
 	
-	@GetMapping(path = "/allusers")
-	public @ResponseBody Iterable<User> getAllUsers() {
-		return userRepository.findAll();
-	}
-	
-	@PostMapping(path="/addbook")
+	@PostMapping(path="/books")
 	public @ResponseBody String addNewBook(@RequestParam Integer isbn, @RequestParam String title, @RequestParam String author) {
 		Book b = new Book();
 		b.setIsbn(isbn);
@@ -55,12 +56,12 @@ public class MainController {
 		return "Saved";
 	}
 	
-	@GetMapping(path = "/allbooks")
+	@GetMapping(path = "/books")
 	public @ResponseBody Iterable<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
 	
-	@PostMapping(path="/removebook")
+	@DeleteMapping(path="/books")
 	public @ResponseBody String removeBook(@RequestParam Integer isbn) {
 		Optional<Book> toBeRemoved = bookRepository.findById(isbn);
 		toBeRemoved.ifPresent(book -> {bookRepository.delete(book);});
