@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -24,6 +25,24 @@ public class UserController {
 		Iterable<User> allUsers = userRepository.findAll();
 		if (allUsers.iterator().hasNext())	model.addAttribute("users", allUsers);
 		else								model.addAttribute("users", new ArrayList<User>());
+		return "userList";
+	}
+	
+	@PostMapping(path="/userList")
+	public String getMatchingUsers(Model model, @RequestParam String searchQuery) {
+		model.addAttribute("searchQuery", searchQuery);
+		model.addAttribute("users", new ArrayList<User>());
+		if (!searchQuery.isEmpty()) {
+			ArrayList<User> results = userRepository.findDistinctUsersByNameLikeOrEmailLikeAllIgnoreCaseOrderByIdAsc("%" + searchQuery + "%", "%" + searchQuery + "%");
+			if (results.size() > 0) {
+				model.addAttribute("users", results);
+			} else {
+				model.addAttribute("noMatchMessage", "The are no users that match the search criteria.");
+			}
+		} else {
+			Iterable<User> allUsers = userRepository.findAll();
+			if (allUsers.iterator().hasNext())	model.addAttribute("users", allUsers);
+		}
 		return "userList";
 	}
 	

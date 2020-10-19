@@ -1,5 +1,6 @@
 package com.cgi.springboot.mysqlaccess;
 
+import java.awt.List;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookController {
@@ -24,6 +26,24 @@ public class BookController {
 		Iterable<Book> allBooks = bookRepository.findAll();
 		if (allBooks.iterator().hasNext())	model.addAttribute("books", allBooks);
 		else								model.addAttribute("books", new ArrayList<Book>());
+		return "bookList";
+	}
+	
+	@PostMapping(path="/bookList")
+	public String getMatchingBooks(Model model, @RequestParam String searchQuery) {
+		model.addAttribute("searchQuery", searchQuery);
+		model.addAttribute("books", new ArrayList<Book>());
+		if (!searchQuery.isEmpty()) {
+			ArrayList<Book> results = bookRepository.findDistinctBooksByTitleLikeOrAuthorLikeAllIgnoreCaseOrderByTitleAsc("%" + searchQuery + "%", "%" + searchQuery + "%");
+			if (results.size() > 0) {
+				model.addAttribute("books", results);
+			} else {
+				model.addAttribute("noMatchMessage", "The are no books that match the search criteria.");
+			}
+		} else {
+			Iterable<Book> allBooks = bookRepository.findAll();
+			if (allBooks.iterator().hasNext())	model.addAttribute("books", allBooks);
+		}
 		return "bookList";
 	}
 	

@@ -8,7 +8,17 @@
 	<h1>List of Users</h1>
 	<br/>
 	<div>
-		<table border="1">
+		<form th:action="@{/userList}" method="POST">
+			Search:
+			<input type="text" th:value="${searchQuery}" name="searchQuery"/>
+			<input type="submit" value="Search"/>
+			<br/>
+		</form>
+		<br/>
+	</div>
+	<div>
+		<p th:if="${noMatchMessage}" th:utext="${noMatchMessage}"></p>
+		<table th:if="${noMatchMessage} == null" border="1">
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
