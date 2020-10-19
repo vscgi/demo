@@ -17,8 +17,11 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Value("${error.message.user}")
+	@Value("${error.message.user.requiredfields}")
 	private String errorMessage;
+	
+	@Value("${error.message.user.nomatch}")
+	private String noMatchMessage;
 	
 	@GetMapping(path="/userList")
 	public String getAllUsers(Model model) {
@@ -37,7 +40,7 @@ public class UserController {
 			if (results.size() > 0) {
 				model.addAttribute("users", results);
 			} else {
-				model.addAttribute("noMatchMessage", "The are no users that match the search criteria.");
+				model.addAttribute("noMatchMessage", noMatchMessage);
 			}
 		} else {
 			Iterable<User> allUsers = userRepository.findAll();

@@ -1,6 +1,5 @@
 package com.cgi.springboot.mysqlaccess;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,11 @@ public class BookController {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	@Value("${error.message.book}")
+	@Value("${error.message.book.requiredfields}")
 	private String errorMessage;
+	
+	@Value("${error.message.book.nomatch}")
+	private String noMatchMessage;
 	
 	@GetMapping(path="/bookList")
 	public String getAllBooks(Model model) {
@@ -38,7 +40,7 @@ public class BookController {
 			if (results.size() > 0) {
 				model.addAttribute("books", results);
 			} else {
-				model.addAttribute("noMatchMessage", "The are no books that match the search criteria.");
+				model.addAttribute("noMatchMessage", noMatchMessage);
 			}
 		} else {
 			Iterable<Book> allBooks = bookRepository.findAll();
