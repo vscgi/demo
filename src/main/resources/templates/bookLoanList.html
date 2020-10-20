@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>All Book Loans</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<h1>List of Book Loans</h1>
+	<br/>
+	<div>
+		<form th:action="@{/bookLoanList}" method="POST">
+			Search:
+			<input type="text" th:value="${searchQuery}" name="searchQuery"/>
+			<input type="submit" value="Search"/>
+			<br/>
+		</form>
+		<br/>
+	</div>
+	<div>
+		<p th:if="${noMatchMessage}" th:utext="${noMatchMessage}"></p>
+		<table th:if="${noMatchMessage} == null" border="1">
+			<tr>
+				<th>Book</th>
+				<th>Loaner</th>
+				<th>Returned</th>
+			</tr>
+			<tr th:each = "bookLoan : ${bookLoans}">
+				<td th:utext="'\'' + ${bookLoan.book.title} + '\' by ' + ${bookLoan.book.author}"></td>
+				<td th:utext="${bookLoan.loaner.name} + ' (' + ${bookLoan.loaner.email} + ')'"></td>
+				<td th:utext="${bookLoan.returned} ? 'Yes' : 'No'"></td>
+			</tr>
+		</table>
+	</div>
+	<p>Click <a href="/addBookLoan">here</a> to add a new book loan.</p>
+	<p>Return to the home page <a href="/">here</a>.</p>
+</body>
+</html>

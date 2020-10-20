@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Loan a Book</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<h2>Loan a book from the store:</h2>
+	<br/>
+	<form th:action="@{/addBookLoan}" method="POST">
+		ISBN:
+		<input type="text" name="isbn" th:value="${isbn}"/>
+		<br/>
+		Loaner ID:
+		<input type="text" name="loanerId" th:value="${loanerId}"/>
+		<br/>
+		<input type="submit" value="Add"/>
+	</form>
+	<br/>
+	<div th:if="${errorMessageBook}" th:utext="${errorMessageBook}" style="color:red;font-style:italic;"></div>
+	<div th:if="${errorMessageLoaner}" th:utext="${errorMessageLoaner}" style="color:red;font-style:italic;"></div>
+	<p>Click <a href="/bookLoanList">here</a> to see a list of all book loans.</p>
+	<p>Return to the home page <a href="/">here</a>.</p>
+</body>
+</html>
