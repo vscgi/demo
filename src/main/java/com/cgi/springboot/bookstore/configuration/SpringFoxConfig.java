@@ -1,4 +1,4 @@
-package com.cgi.springboot.configuration;
+package com.cgi.springboot.bookstore.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

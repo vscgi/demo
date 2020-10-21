@@ -1,4 +1,4 @@
-package com.cgi.springboot;
+package com.cgi.springboot.demo;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

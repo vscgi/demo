@@ -1,4 +1,4 @@
-package com.cgi.springboot;
+package com.cgi.springboot.demo;
 
 import java.util.Arrays;
 

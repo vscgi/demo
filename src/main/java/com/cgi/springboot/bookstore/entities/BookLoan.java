@@ -1,4 +1,4 @@
-package com.cgi.springboot.mysqlaccess;
+package com.cgi.springboot.bookstore.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

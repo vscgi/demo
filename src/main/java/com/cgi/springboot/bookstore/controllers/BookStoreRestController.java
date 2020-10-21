@@ -1,4 +1,4 @@
-package com.cgi.springboot.mysqlaccess;
+package com.cgi.springboot.bookstore.controllers;
 
 import java.util.Optional;
 
@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cgi.springboot.bookstore.entities.Book;
+import com.cgi.springboot.bookstore.entities.User;
+import com.cgi.springboot.bookstore.repositories.BookRepository;
+import com.cgi.springboot.bookstore.repositories.UserRepository;
+
 @Controller
-@RequestMapping(path = "/mysqldemo")
-public class MainController {
+@RequestMapping(path = "/bookstore")
+public class BookStoreRestController {
 	@Autowired
 	private UserRepository userRepository;
 	

@@ -1,8 +1,10 @@
-package com.cgi.springboot.mysqlaccess;
+package com.cgi.springboot.bookstore.entities;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -12,16 +14,17 @@ import lombok.ToString;
 
 @Data
 @Entity
-public class Book {
+public class User {
 	@Id
-	private int isbn;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
-	private String title;
+	private String name;
 	
-	private String author;
+	private String email;
 	
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "loaner")
 	private Set<BookLoan> loans;
 }

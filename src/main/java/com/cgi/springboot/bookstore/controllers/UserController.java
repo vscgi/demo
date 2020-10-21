@@ -1,4 +1,4 @@
-package com.cgi.springboot.mysqlaccess;
+package com.cgi.springboot.bookstore.controllers;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cgi.springboot.bookstore.entities.User;
+import com.cgi.springboot.bookstore.repositories.UserRepository;
 
 @Controller
 public class UserController {

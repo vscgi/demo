@@ -1,4 +1,4 @@
-package com.cgi.springboot.consumingrest;
+package com.cgi.springboot.demo.consumingrest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.cgi.springboot.mysqlaccess;
+package com.cgi.springboot.bookstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
